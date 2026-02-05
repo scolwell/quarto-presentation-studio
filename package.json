@@ -1,0 +1,22 @@
+{
+  "name": "quarto-template-browser",
+  "version": "1.0.0",
+  "description": "Template Browser for Quarto RevealJS decks",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "generate": "node scripts/generate-templates.js",
+    "previews": "node scripts/generate-previews.js",
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.1"
+  }
+}

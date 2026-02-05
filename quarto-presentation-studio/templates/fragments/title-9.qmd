@@ -1,0 +1,11 @@
+## Presentation Title {.title-full}
+
+::: {.subtitle}
+Your subtitle goes here
+:::
+
+::: {.author-info}
+Dr. Jane Smith  
+February 4, 2026  
+Conference Center, City
+:::

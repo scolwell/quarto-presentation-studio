@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quarto Presentation Studio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: #FFFFFF;
+        }
+
+        .dashboard {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar Styles - TSM Academic Style */
+        .sidebar {
+            width: 240px;
+            background: #1F2933;
+            color: #FFFFFF;
+            transition: width 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #0F1419;
+            z-index: 1000;
+        }
+
+        .sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo {
+            font-size: 16px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            color: #FFFFFF;
+        }
+
+        .sidebar.collapsed .sidebar-logo {
+            display: none;
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 3px;
+            transition: background 0.15s;
+        }
+
+        .sidebar-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 8px 0;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.7);
+            border-left: 3px solid transparent;
+            font-size: 14px;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #FFFFFF;
+        }
+
+        .nav-item.active {
+            background: rgba(0, 103, 255, 0.15);
+            color: #FFFFFF;
+            border-left-color: #0067FF;
+            font-weight: 500;
+        }
+
+        .nav-icon {
+            font-size: 18px;
+            margin-right: 12px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .sidebar.collapsed .nav-icon {
+            margin-right: 0;
+        }
+
+        .nav-text {
+            white-space: nowrap;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .sidebar.collapsed .nav-text {
+            display: none;
+        }
+
+        .nav-shortcut {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-left: auto;
+        }
+
+        .sidebar.collapsed .nav-shortcut {
+            display: none;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .topbar {
+            background: #6C7A89;
+            padding: 14px 24px;
+            border-bottom: 1px solid #5A6670;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+        }
+
+        .breadcrumb-separator {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .breadcrumb-current {
+            color: #FFFFFF;
+            font-weight: 500;
+        }
+
+        .topbar-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 7px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.15s;
+            background: transparent;
+            color: #FFFFFF;
+        }
+
+        .btn-primary {
+            background: #FFFFFF;
+            color: #0067FF;
+            border-color: #FFFFFF;
+        }
+
+        .btn-primary:hover {
+            background: #F6F7F9;
+            border-color: #F6F7F9;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #FFFFFF;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Module Containers */
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            background: #F6F7F9;
+        }
+
+        .module {
+            display: none;
+        }
+
+        .module.active {
+            display: block;
+        }
+
+        .module-header {
+            margin-bottom: 20px;
+            padding-top: 12px;
+            border-top: 2px solid #5B7C99;
+        }
+
+        .module-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1F2933;
+            margin-bottom: 6px;
+        }
+
+        .module-description {
+            color: #5F6B7A;
+            font-size: 14px;
+        }
+
+        .module-content {
+            background: #FFFFFF;
+            border-radius: 3px;
+            padding: 24px;
+            border: 1px solid #DADDE2;
+        }
+
+        /* Welcome/Home Module */
+        .welcome-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .welcome-card {
+            background: #FFFFFF;
+            color: #1F2933;
+            padding: 24px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: 1px solid #DADDE2;
+            border-left: 3px solid #DADDE2;
+        }
+
+        .welcome-card[data-nav="design"] {
+            border-left-color: #7B68A6;
+        }
+
+        .welcome-card[data-nav="browse"] {
+            border-left-color: #4A90A4;
+        }
+
+        .welcome-card[data-nav="build"] {
+            border-left-color: #6B8E7F;
+        }
+
+        .welcome-card:hover {
+            border-color: #9AA4B2;
+            background: #F6F7F9;
+        }
+
+        .welcome-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1F2933;
+        }
+
+        .welcome-card p {
+            color: #5F6B7A;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+
+            .sidebar-logo,
+            .nav-text,
+            .nav-shortcut {
+                display: none;
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: #5F6B7A;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            color: #5F6B7A;
+        }
+
+        .empty-state-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+            color: #9AA4B2;
+        }
+
+        /* Status Messages */
+        .status-message {
+            padding: 12px 16px;
+            border-radius: 3px;
+            margin-bottom: 16px;
+            border-left: 3px solid;
+        }
+
+        .status-info {
+            background: #EFF6FB;
+            border-left-color: #5B7C99;
+            color: #1F2933;
+        }
+
+        .status-success {
+            background: #E8F5E9;
+            border-left-color: #2E7D32;
+            color: #1F2933;
+        }
+
+        .status-warning {
+            background: #FFEBEE;
+            border-left-color: #C62828;
+            color: #1F2933;
+        }
+
+        /* Secondary Accents */
+        a {
+            color: #4A90A4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .tag,
+        .label {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #6C7A89;
+            color: #FFFFFF;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .card:hover,
+        .module-content:hover {
+            background: #E8EEF3;
+        }
+
+        /* Sidebar Footer */
+        .sidebar-footer {
+            padding: 12px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+
+        .sidebar.collapsed .sidebar-footer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">🎬 Quarto Studio</div>
+                <button class="sidebar-toggle" id="sidebarToggle" title="Toggle Sidebar (Ctrl+B)">
+                    ‹
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a class="nav-item active" data-module="home" href="#/home">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Home</span>
+                    <span class="nav-shortcut">Ctrl+1</span>
+                </a>
+
+                <a class="nav-item" data-module="design" href="#/design">
+                    <span class="nav-icon">🎨</span>
+                    <span class="nav-text">Design Theme</span>
+                    <span class="nav-shortcut">Ctrl+2</span>
+                </a>
+
+                <a class="nav-item" data-module="browse" href="#/browse">
+                    <span class="nav-icon">📚</span>
+                    <span class="nav-text">Browse Templates</span>
+                    <span class="nav-shortcut">Ctrl+3</span>
+                </a>
+
+                <a class="nav-item" data-module="build" href="#/build">
+                    <span class="nav-icon">🔨</span>
+                    <span class="nav-text">Build Deck</span>
+                    <span class="nav-shortcut">Ctrl+4</span>
+                </a>
+
+                <a class="nav-item" data-module="library" href="#/library">
+                    <span class="nav-icon">💾</span>
+                    <span class="nav-text">Library</span>
+                    <span class="nav-shortcut">Ctrl+5</span>
+                </a>
+
+                <a class="nav-item" data-module="settings" href="#/settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Settings</span>
+                    <span class="nav-shortcut">Ctrl+6</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                © 2026 Colwell TSM
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="topbar">
+                <div class="breadcrumbs">
+                    <span>Quarto Studio</span>
+                    <span class="breadcrumb-separator">›</span>
+                    <span class="breadcrumb-current" id="breadcrumbCurrent">Home</span>
+                </div>
+                <div class="topbar-actions">
+                    <button class="btn btn-secondary" id="helpBtn">Help</button>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Home Module -->
+                <section class="module active" id="module-home" data-module="home">
+                    <div class="module-header">
+                        <h1 class="module-title">Welcome to Quarto Presentation Studio</h1>
+                        <p class="module-description">Create beautiful, professional presentations with customizable themes and templates</p>
+                    </div>
+
+                    <div class="module-content">
+                        <div class="welcome-grid">
+                            <div class="welcome-card" data-nav="design" data-feature="design">
+                                <div class="feature-icon" style="width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; background: #0067FF; color: #FFFFFF;">🎨</div>
+                                <h3>Design Your Theme</h3>
+                                <p>Choose from 3 built-in presets or create custom themes with colors, fonts, and layouts</p>
+                            </div>
+
+                            <div class="welcome-card" data-nav="browse" data-feature="browse">
+                                <div class="feature-icon" style="width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; background: #00C853; color: #FFFFFF;">📚</div>
+                                <h3>Browse Templates</h3>
+                                <p>Explore 80 professional slide templates organized by category and layout</p>
+                            </div>
+
+                            <div class="welcome-card" data-nav="build" data-feature="build">
+                                <div class="feature-icon" style="width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; background: #9C27B0; color: #FFFFFF;">🔨</div>
+                                <h3>Build Your Deck</h3>
+                                <p>Assemble slides, apply themes, and export complete Quarto presentations</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Design Theme Module -->
+                <section class="module" id="module-design" data-module="design">
+                    <div class="module-header">
+                        <h1 class="module-title">Design Theme</h1>
+                        <p class="module-description">Customize colors, fonts, and styles for your presentation</p>
+                    </div>
+
+                    <div class="module-content">
+                        <!-- Preset Selector -->
+                        <div class="preset-selector-container">
+                            <label for="themePresetSelect" style="font-weight: 600; margin-bottom: 8px; display: block;">Choose Theme:</label>
+                            <select id="themePresetSelect" style="width: 100%; padding: 8px; border: 1px solid #DADDE2; border-radius: 3px; font-size: 14px; margin-bottom: 16px;">
+                                <optgroup label="Built-in Themes">
+                                    <option value="academic">🔒 Academic (built-in)</option>
+                                    <option value="business">🔒 Business (built-in)</option>
+                                    <option value="creative">🔒 Creative (built-in)</option>
+                                </optgroup>
+                                <optgroup label="Custom Themes" id="customThemesGroup">
+                                    <!-- Dynamically populated -->
+                                </optgroup>
+                                <option value="__new__">+ Create New from Blank</option>
+                            </select>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="preset-actions" style="display: flex; gap: 8px; margin-bottom: 20px;">
+                            <button id="saveAsBtn" class="btn btn-secondary">Save as...</button>
+                            <button id="updateThemeBtn" class="btn btn-secondary" style="display:none;">Update</button>
+                            <button id="deleteThemeBtn" class="btn btn-secondary" style="display:none;">Delete</button>
+                            <button id="resetThemeBtn" class="btn btn-secondary">Reset</button>
+                        </div>
+
+                        <!-- Two-column layout -->
+                        <div class="design-layout" style="display: grid; grid-template-columns: 40% 60%; gap: 24px;">
+                            <!-- Left Column - Controls -->
+                            <div class="controls-column">
+                                <!-- Colors Section -->
+                                <div class="control-section" style="margin-bottom: 24px; padding: 16px; border: 1px solid #DADDE2; border-radius: 3px;">
+                                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px; color: #1F2933;">Colors</h3>
+                                    
+                                    <div class="control-group" style="margin-bottom: 12px;">
+                                        <label for="bgColor" style="display: block; font-size: 13px; margin-bottom: 4px; color: #5F6B7A;">Background</label>
+                                        <input type="color" id="bgColor" style="width: 100%; height: 40px; border: 1px solid #DADDE2; border-radius: 3px;">
+                                    </div>
+
+                                    <div class="control-group" style="margin-bottom: 12px;">
+                                        <label for="textColor" style="display: block; font-size: 13px; margin-bottom: 4px; color: #5F6B7A;">Text</label>
+                                        <input type="color" id="textColor" style="width: 100%; height: 40px; border: 1px solid #DADDE2; border-radius: 3px;">
+                                    </div>
+
+                                    <div class="control-group" style="margin-bottom: 12px;">
+                                        <label for="headingColor" style="display: block; font-size: 13px; margin-bottom: 4px; color: #5F6B7A;">Heading</label>
+                                        <input type="color" id="headingColor" style="width: 100%; height: 40px; border: 1px solid #DADDE2; border-radius: 3px;">
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label for="accentColor" style="display: block; font-size: 13px; margin-bottom: 4px; color: #5F6B7A;">Accent</label>
+                                        <input type="color" id="accentColor" style="width: 100%; height: 40px; border: 1px solid #DADDE2; border-radius: 3px;">
+                                    </div>
+                                </div>
+
+                                <!-- Fonts Section -->
+                                <div class="control-section" style="margin-bottom: 24px; padding: 16px; border: 1px solid #DADDE2; border-radius: 3px;">
+                                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px; color: #1F2933;">Fonts</h3>
+                                    
+                                    <div class="control-group" style="margin-bottom: 12px;">
+                                        <label for="headingFont" style="display: block; font-size: 13px; margin-bottom: 4px; color: #5F6B7A;">Heading Font</label>
+                                        <select id="headingFont" style="width: 100%; padding: 8px; border: 1px solid #DADDE2; border-radius: 3px; font-size: 13px;">
+                                            <option value="Georgia">Georgia</option>
+                                            <option value="Palatino">Palatino</option>
+                                            <option value="Times New Roman">Times New Roman</option>
+                                            <option value="Arial">Arial</option>
+                                            <option value="Helvetica">Helvetica</option>
+                                            <option value="Calibri">Calibri</option>
+                                            <option value="Garamond">Garamond</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label for="bodyFont" style="display: block; font-size: 13px; margin-bottom: 4px; color: #5F6B7A;">Body Font</label>
+                                        <select id="bodyFont" style="width: 100%; padding: 8px; border: 1px solid #DADDE2; border-radius: 3px; font-size: 13px;">
+                                            <option value="Georgia">Georgia</option>
+                                            <option value="Palatino">Palatino</option>
+                                            <option value="Times New Roman">Times New Roman</option>
+                                            <option value="Arial">Arial</option>
+                                            <option value="Helvetica">Helvetica</option>
+                                            <option value="Calibri">Calibri</option>
+                                            <option value="Garamond">Garamond</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Sizes Section -->
+                                <div class="control-section" style="margin-bottom: 24px; padding: 16px; border: 1px solid #DADDE2; border-radius: 3px;">
+                                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px; color: #1F2933;">Sizes</h3>
+                                    
+                                    <div class="control-group" style="margin-bottom: 12px;">
+                                        <label for="titleSize" style="display: block; font-size: 13px; margin-bottom: 4px; color: #5F6B7A;">Title Size: <span id="titleSizeValue">44</span>px</label>
+                                        <input type="range" id="titleSize" min="28" max="72" value="44" style="width: 100%;">
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label for="bodySize" style="display: block; font-size: 13px; margin-bottom: 4px; color: #5F6B7A;">Body Size: <span id="bodySizeValue">24</span>px</label>
+                                        <input type="range" id="bodySize" min="16" max="36" value="24" style="width: 100%;">
+                                    </div>
+                                </div>
+
+                                <!-- Options Section -->
+                                <div class="control-section" style="padding: 16px; border: 1px solid #DADDE2; border-radius: 3px;">
+                                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px; color: #1F2933;">Options</h3>
+                                    
+                                    <div class="control-group" style="margin-bottom: 8px;">
+                                        <label style="display: flex; align-items: center; font-size: 13px; color: #5F6B7A;">
+                                            <input type="checkbox" id="showSlideNumber" style="margin-right: 8px;">
+                                            Show Slide Numbers
+                                        </label>
+                                    </div>
+
+                                    <div class="control-group" style="margin-bottom: 8px;">
+                                        <label style="display: flex; align-items: center; font-size: 13px; color: #5F6B7A;">
+                                            <input type="checkbox" id="showProgress" style="margin-right: 8px;">
+                                            Show Progress Bar
+                                        </label>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label style="display: flex; align-items: center; font-size: 13px; color: #5F6B7A;">
+                                            <input type="checkbox" id="showControls" checked style="margin-right: 8px;">
+                                            Show Controls
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column - Preview -->
+                            <div class="preview-column">
+                                <!-- Tabs -->
+                                <div class="preview-tabs" style="display: flex; gap: 2px; margin-bottom: 16px; border-bottom: 1px solid #DADDE2;">
+                                    <button class="preview-tab active" data-tab="preview" style="padding: 10px 16px; background: #FFFFFF; border: none; border-bottom: 2px solid #0067FF; cursor: pointer; font-size: 13px; font-weight: 500; color: #1F2933;">Preview</button>
+                                    <button class="preview-tab" data-tab="yaml" style="padding: 10px 16px; background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-size: 13px; font-weight: 500; color: #5F6B7A;">YAML</button>
+                                    <button class="preview-tab" data-tab="scss" style="padding: 10px 16px; background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-size: 13px; font-weight: 500; color: #5F6B7A;">SCSS</button>
+                                </div>
+
+                                <!-- Preview Content -->
+                                <div class="preview-content">
+                                    <div id="previewPane" class="preview-pane active" style="background: #F6F7F9; border: 1px solid #DADDE2; border-radius: 3px; padding: 40px 60px; aspect-ratio: 16/9; display: flex; flex-direction: column; justify-content: center;">
+                                        <h2 id="previewTitle" style="font-size: 44px; margin-bottom: 20px;">Sample Title</h2>
+                                        <p id="previewBody" style="font-size: 24px; line-height: 1.5;">This is sample body text that demonstrates how your theme will look in a presentation.</p>
+                                    </div>
+
+                                    <div id="yamlPane" class="preview-pane" style="display: none;">
+                                        <pre id="yamlCode" style="background: #1F2933; color: #FFFFFF; padding: 16px; border-radius: 3px; overflow-x: auto; font-family: Monaco, Consolas, monospace; font-size: 12px; line-height: 1.5;"></pre>
+                                    </div>
+
+                                    <div id="scssPane" class="preview-pane" style="display: none;">
+                                        <pre id="scssCode" style="background: #1F2933; color: #FFFFFF; padding: 16px; border-radius: 3px; overflow-x: auto; font-family: Monaco, Consolas, monospace; font-size: 12px; line-height: 1.5;"></pre>
+                                    </div>
+                                </div>
+
+                                <!-- Apply Button -->
+                                <button id="applyToDeckBtn" class="btn btn-primary" style="margin-top: 16px; width: 100%;">Apply to Deck & Build</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Save Theme Modal -->
+                <div id="saveThemeModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+                    <div class="modal-content" style="background: #FFFFFF; padding: 24px; border-radius: 3px; width: 90%; max-width: 500px; border: 1px solid #DADDE2;">
+                        <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #1F2933;">Save Custom Theme</h3>
+                        <input id="themeNameInput" type="text" placeholder="Theme name..." style="width: 100%; padding: 10px; border: 1px solid #DADDE2; border-radius: 3px; font-size: 14px; margin-bottom: 12px;">
+                        <textarea id="themeDescInput" placeholder="Description (optional)" rows="3" style="width: 100%; padding: 10px; border: 1px solid #DADDE2; border-radius: 3px; font-size: 14px; margin-bottom: 16px; resize: vertical;"></textarea>
+                        <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                            <button id="saveThemeCancelBtn" class="btn btn-secondary">Cancel</button>
+                            <button id="saveThemeConfirmBtn" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Browse Templates Module -->
+                <section class="module" id="module-browse" data-module="browse">
+                    <div class="module-header">
+                        <h1 class="module-title">Browse Templates</h1>
+                        <p class="module-description">Explore and preview 80 slide templates</p>
+                    </div>
+
+                    <div class="module-content">
+                        <!-- Filters and Search -->
+                        <div class="browse-controls" style="display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 200px;">
+                                <label for="browse-layoutFilter" style="display: block; margin-bottom: 4px; font-size: 12px; color: #5F6B7A; font-weight: 500;">Layout:</label>
+                                <select id="browse-layoutFilter" style="width: 100%; padding: 8px; border: 1px solid #DADDE2; border-radius: 3px; font-size: 13px;">
+                                    <option value="">All Layouts</option>
+                                </select>
+                            </div>
+
+                            <div style="flex: 2; min-width: 300px;">
+                                <label for="browse-searchInput" style="display: block; margin-bottom: 4px; font-size: 12px; color: #5F6B7A; font-weight: 500;">Search:</label>
+                                <input
+                                    type="text"
+                                    id="browse-searchInput"
+                                    placeholder="Search by name, layout, or tags..."
+                                    style="width: 100%; padding: 8px; border: 1px solid #DADDE2; border-radius: 3px; font-size: 13px;"
+                                />
+                            </div>
+
+                            <div style="display: flex; align-items: flex-end;">
+                                <button id="browse-resetBtn" style="padding: 8px 16px; background: #FFFFFF; border: 1px solid #DADDE2; border-radius: 3px; cursor: pointer; font-size: 13px; color: #1F2933;">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Stats Bar -->
+                        <div style="background: #F6F7F9; padding: 8px 12px; border-radius: 3px; margin-bottom: 16px; font-size: 12px; color: #5F6B7A;">
+                            <span id="browse-stats">Loading templates...</span>
+                        </div>
+
+                        <!-- Template Grid -->
+                        <div id="browse-templateGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                            <!-- Template cards will be inserted here -->
+                        </div>
+
+                        <!-- Empty State -->
+                        <div id="browse-emptyState" style="display: none; text-align: center; padding: 48px 20px; color: #5F6B7A;">
+                            <div style="font-size: 40px; margin-bottom: 12px; color: #9AA4B2;">🔍</div>
+                            <p>No templates found matching your search</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Template Card Template -->
+                <template id="browse-templateCard">
+                    <div class="template-card" style="background: #FFFFFF; border: 1px solid #DADDE2; border-radius: 3px; padding: 16px; cursor: pointer; transition: all 0.15s;">
+                        <div style="margin-bottom: 12px;">
+                            <h3 class="card-name" style="font-size: 14px; font-weight: 600; color: #1F2933; margin: 0 0 4px 0;"></h3>
+                            <div class="card-layout" style="font-size: 11px; color: #5F6B7A; text-transform: uppercase; letter-spacing: 0.5px;"></div>
+                        </div>
+                        <div style="margin-bottom: 12px; font-size: 12px; color: #5F6B7A;">
+                            <div style="margin-bottom: 4px;">
+                                <strong style="color: #1F2933;">Layout:</strong> <span class="card-meta-layout"></span>
+                            </div>
+                            <div style="margin-bottom: 4px;">
+                                <strong style="color: #1F2933;">PowerPoint:</strong> <span class="card-meta-ppt"></span>
+                            </div>
+                            <div class="card-tags" style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px;"></div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn-preview" style="flex: 1; padding: 6px 12px; background: #FFFFFF; border: 1px solid #0067FF; color: #0067FF; border-radius: 3px; cursor: pointer; font-size: 12px; transition: all 0.15s;">
+                                Preview
+                            </button>
+                            <button class="btn-add" style="flex: 1; padding: 6px 12px; background: #0067FF; border: 1px solid #0067FF; color: #FFFFFF; border-radius: 3px; cursor: pointer; font-size: 12px; transition: all 0.15s;">
+                                Add to Deck
+                            </button>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Preview Modal -->
+                <div id="browse-previewModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center;">
+                    <div style="background: #FFFFFF; width: 90%; max-width: 1200px; max-height: 90vh; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column;">
+                        <!-- Modal Header -->
+                        <div style="padding: 16px 20px; border-bottom: 1px solid #DADDE2; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h2 id="browse-previewTitle" style="font-size: 16px; margin: 0 0 4px 0; color: #1F2933;"></h2>
+                                <div id="browse-previewMeta" style="font-size: 12px; color: #5F6B7A;"></div>
+                            </div>
+                            <button id="browse-closeModal" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #5F6B7A; padding: 0; width: 32px; height: 32px;">
+                                ✕
+                            </button>
+                        </div>
+                        
+                        <!-- Modal Body -->
+                        <div style="flex: 1; overflow: auto; padding: 20px;">
+                            <iframe
+                                id="browse-previewFrame"
+                                style="width: 100%; height: 600px; border: 1px solid #DADDE2; border-radius: 3px;"
+                                title="Template Preview"
+                            ></iframe>
+                        </div>
+                        
+                        <!-- Modal Footer -->
+                        <div style="padding: 16px 20px; border-top: 1px solid #DADDE2; display: flex; gap: 12px; justify-content: flex-end;">
+                            <button id="browse-modalCancel" style="padding: 8px 16px; background: #FFFFFF; border: 1px solid #DADDE2; border-radius: 3px; cursor: pointer; font-size: 13px; color: #1F2933;">
+                                Close
+                            </button>
+                            <button id="browse-modalAdd" style="padding: 8px 24px; background: #0067FF; border: 1px solid #0067FF; color: #FFFFFF; border-radius: 3px; cursor: pointer; font-size: 13px;">
+                                Add to Deck
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Build Deck Module -->
+                <section class="module" id="module-build" data-module="build">
+                    <div class="module-header">
+                        <h1 class="module-title">Build Deck</h1>
+                        <p class="module-description">Assemble your presentation and export</p>
+                    </div>
+
+                    <div class="module-content">
+                        <!-- Empty State -->
+                        <div id="build-emptyState" style="display: none; text-align: center; padding: 48px 20px; color: #5F6B7A;">
+                            <div style="font-size: 40px; margin-bottom: 12px; color: #9AA4B2;">📋</div>
+                            <h3 style="font-size: 16px; margin-bottom: 8px; color: #1F2933;">No slides selected</h3>
+                            <p style="margin-bottom: 20px;">Browse templates and add slides to your deck</p>
+                            <button id="build-browseBtn" style="padding: 8px 24px; background: #0067FF; border: none; border-radius: 3px; color: #FFFFFF; cursor: pointer; font-size: 13px;">
+                                Browse Templates
+                            </button>
+                        </div>
+
+                        <!-- Builder Content -->
+                        <div id="build-content" style="display: grid; grid-template-columns: 300px 1fr 320px; gap: 20px; height: calc(100vh - 180px);">
+                            <!-- Left Panel: Selected Slides -->
+                            <div style="background: #FFFFFF; border: 1px solid #DADDE2; border-radius: 3px; padding: 16px; overflow-y: auto;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                    <h3 style="font-size: 14px; font-weight: 600; color: #1F2933; margin: 0;">Selected Slides</h3>
+                                    <button id="build-clearAllBtn" style="background: none; border: none; color: #C62828; cursor: pointer; font-size: 12px; padding: 4px 8px;">
+                                        Clear All
+                                    </button>
+                                </div>
+                                
+                                <div style="background: #F6F7F9; padding: 8px 12px; border-radius: 3px; margin-bottom: 12px; font-size: 12px; color: #5F6B7A;">
+                                    <span id="build-slideCount">0 slides</span>
+                                </div>
+
+                                <ol id="build-slidesList" style="list-style: none; padding: 0; margin: 0;">
+                                    <!-- Slide items will be inserted here -->
+                                </ol>
+                            </div>
+
+                            <!-- Middle Panel: Preview -->
+                            <div style="background: #FFFFFF; border: 1px solid #DADDE2; border-radius: 3px; display: flex; flex-direction: column; overflow: hidden;">
+                                <!-- Preview Tabs -->
+                                <div style="display: flex; border-bottom: 1px solid #DADDE2; background: #F6F7F9;">
+                                    <button class="build-preview-tab" data-tab="preview" style="flex: 1; padding: 10px; border: none; background: #FFFFFF; cursor: pointer; font-size: 12px; border-bottom: 2px solid #0067FF; color: #1F2933; font-weight: 500;">
+                                        Preview
+                                    </button>
+                                    <button class="build-preview-tab" data-tab="qmd" style="flex: 1; padding: 10px; border: none; background: transparent; cursor: pointer; font-size: 12px; border-bottom: 2px solid transparent; color: #5F6B7A;">
+                                        QMD
+                                    </button>
+                                    <button class="build-preview-tab" data-tab="scss" style="flex: 1; padding: 10px; border: none; background: transparent; cursor: pointer; font-size: 12px; border-bottom: 2px solid transparent; color: #5F6B7A;">
+                                        SCSS
+                                    </button>
+                                    <button class="build-preview-tab" data-tab="readme" style="flex: 1; padding: 10px; border: none; background: transparent; cursor: pointer; font-size: 12px; border-bottom: 2px solid transparent; color: #5F6B7A;">
+                                        README
+                                    </button>
+                                </div>
+
+                                <!-- Preview Content -->
+                                <div style="flex: 1; overflow-y: auto; padding: 20px;" id="build-previewContainer">
+                                    <div id="build-preview" style="display: block;">
+                                        <div style="text-align: center; color: #5F6B7A; padding: 40px 20px;">
+                                            <p>Preview will appear here</p>
+                                        </div>
+                                    </div>
+                                    <div id="build-qmd" style="display: none;">
+                                        <pre style="background: #F6F7F9; padding: 16px; border-radius: 3px; overflow-x: auto; font-size: 12px; line-height: 1.6;"><code id="build-qmdCode"></code></pre>
+                                    </div>
+                                    <div id="build-scss" style="display: none;">
+                                        <pre style="background: #F6F7F9; padding: 16px; border-radius: 3px; overflow-x: auto; font-size: 12px; line-height: 1.6;"><code id="build-scssCode"></code></pre>
+                                    </div>
+                                    <div id="build-readme" style="display: none;">
+                                        <pre style="background: #F6F7F9; padding: 16px; border-radius: 3px; overflow-x: auto; font-size: 12px; line-height: 1.6;"><code id="build-readmeCode"></code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Panel: Export -->
+                            <div style="background: #FFFFFF; border: 1px solid #DADDE2; border-radius: 3px; padding: 16px; overflow-y: auto;">
+                                <h3 style="font-size: 14px; font-weight: 600; color: #1F2933; margin: 0 0 16px 0;">Deck Metadata</h3>
+                                
+                                <div style="margin-bottom: 16px;">
+                                    <label style="display: block; margin-bottom: 4px; font-size: 12px; color: #5F6B7A; font-weight: 500;">Title:</label>
+                                    <input id="build-title" type="text" placeholder="My Presentation" style="width: 100%; padding: 8px; border: 1px solid #DADDE2; border-radius: 3px; font-size: 13px;">
+                                </div>
+
+                                <div style="margin-bottom: 16px;">
+                                    <label style="display: block; margin-bottom: 4px; font-size: 12px; color: #5F6B7A; font-weight: 500;">Subtitle:</label>
+                                    <input id="build-subtitle" type="text" placeholder="Subtitle (optional)" style="width: 100%; padding: 8px; border: 1px solid #DADDE2; border-radius: 3px; font-size: 13px;">
+                                </div>
+
+                                <div style="margin-bottom: 16px;">
+                                    <label style="display: block; margin-bottom: 4px; font-size: 12px; color: #5F6B7A; font-weight: 500;">Author:</label>
+                                    <input id="build-author" type="text" placeholder="Your Name" style="width: 100%; padding: 8px; border: 1px solid #DADDE2; border-radius: 3px; font-size: 13px;">
+                                </div>
+
+                                <div style="margin-bottom: 16px;">
+                                    <label style="display: block; margin-bottom: 4px; font-size: 12px; color: #5F6B7A; font-weight: 500;">Date:</label>
+                                    <input id="build-date" type="text" placeholder="February 5, 2026" style="width: 100%; padding: 8px; border: 1px solid #DADDE2; border-radius: 3px; font-size: 13px;">
+                                </div>
+
+                                <div style="margin-bottom: 16px;">
+                                    <label style="display: block; margin-bottom: 4px; font-size: 12px; color: #5F6B7A; font-weight: 500;">Filename:</label>
+                                    <input id="build-filename" type="text" placeholder="my-deck" style="width: 100%; padding: 8px; border: 1px solid #DADDE2; border-radius: 3px; font-size: 13px;">
+                                    <div style="font-size: 11px; color: #9AA4B2; margin-top: 4px;">.qmd will be added automatically</div>
+                                </div>
+
+                                <div style="border-top: 1px solid #DADDE2; padding-top: 16px; margin-top: 20px;">
+                                    <h4 style="font-size: 12px; font-weight: 600; color: #1F2933; margin: 0 0 12px 0;">Theme</h4>
+                                    <div id="build-themeInfo" style="background: #F6F7F9; padding: 12px; border-radius: 3px; font-size: 12px; color: #5F6B7A; margin-bottom: 12px;">
+                                        <div style="margin-bottom: 4px;"><strong style="color: #1F2933;">Current:</strong> <span id="build-themeName">Academic</span></div>
+                                    </div>
+                                    <button id="build-changeThemeBtn" style="width: 100%; padding: 8px; background: #FFFFFF; border: 1px solid #DADDE2; border-radius: 3px; cursor: pointer; font-size: 12px; color: #1F2933;">
+                                        Change Theme
+                                    </button>
+                                </div>
+
+                                <div style="border-top: 1px solid #DADDE2; padding-top: 16px; margin-top: 20px;">
+                                    <h4 style="font-size: 12px; font-weight: 600; color: #1F2933; margin: 0 0 12px 0;">Export Options</h4>
+                                    
+                                    <label style="display: flex; align-items: center; margin-bottom: 8px; cursor: pointer; font-size: 12px; color: #1F2933;">
+                                        <input id="build-includeReadme" type="checkbox" checked style="margin-right: 8px;">
+                                        Include README.md
+                                    </label>
+                                    
+                                    <label style="display: flex; align-items: center; margin-bottom: 8px; cursor: pointer; font-size: 12px; color: #1F2933;">
+                                        <input id="build-includeTheme" type="checkbox" checked style="margin-right: 8px;">
+                                        Include custom.scss
+                                    </label>
+                                </div>
+
+                                <button id="build-downloadBtn" style="width: 100%; padding: 12px; background: #0067FF; border: none; border-radius: 3px; color: #FFFFFF; cursor: pointer; font-size: 14px; font-weight: 600; margin-top: 20px;">
+                                    Download Deck
+                                </button>
+
+                                <div id="build-status" style="margin-top: 12px; padding: 8px 12px; border-radius: 3px; font-size: 12px; display: none;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide Item Template -->
+                <template id="build-slideTemplate">
+                    <li class="build-slide-item" style="background: #F6F7F9; padding: 12px; border-radius: 3px; margin-bottom: 8px; cursor: move;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span class="slide-number" style="font-size: 12px; color: #9AA4B2; font-weight: 600; min-width: 24px;"></span>
+                                    <span class="slide-name" style="font-size: 13px; color: #1F2933; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></span>
+                                </div>
+                                <div class="slide-layout" style="font-size: 11px; color: #5F6B7A; margin-top: 2px; margin-left: 32px;"></div>
+                            </div>
+                            <div style="display: flex; gap: 4px;">
+                                <button class="slide-up" style="background: none; border: none; cursor: pointer; color: #5F6B7A; padding: 4px; font-size: 16px;" title="Move up">↑</button>
+                                <button class="slide-down" style="background: none; border: none; cursor: pointer; color: #5F6B7A; padding: 4px; font-size: 16px;" title="Move down">↓</button>
+                                <button class="slide-remove" style="background: none; border: none; cursor: pointer; color: #C62828; padding: 4px; font-size: 16px;" title="Remove">✕</button>
+                            </div>
+                        </div>
+                    </li>
+                </template>
+
+                <!-- Library Module -->
+                <section class="module" id="module-library" data-module="library">
+                    <div class="module-header">
+                        <h1 class="module-title">Library</h1>
+                        <p class="module-description">Manage your saved themes and presentations</p>
+                    </div>
+
+                    <div class="module-content">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">💾</div>
+                            <p>Library module coming soon</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Module -->
+                <section class="module" id="module-settings" data-module="settings">
+                    <div class="module-header">
+                        <h1 class="module-title">Settings</h1>
+                        <p class="module-description">Configure your preferences</p>
+                    </div>
+
+                    <div class="module-content">
+                        <!-- App Theme Settings -->
+                        <div style="max-width: 800px;">
+                            <div style="background: #FFFFFF; border: 1px solid #E6EAEE; border-radius: 8px; padding: 24px; margin-bottom: 16px;">
+                                <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600; color: #0F1419;">App Theme</h3>
+                                <p style="margin: 0 0 16px 0; font-size: 14px; color: #7C8B9A;">Change the color scheme of the dashboard interface</p>
+                                
+                                <div style="margin-bottom: 16px;">
+                                    <label for="appThemeSelect" style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; color: #3E4C59;">Choose App Theme:</label>
+                                    <select id="appThemeSelect" style="width: 100%; padding: 10px; border: 1px solid #DADDE2; border-radius: 6px; font-size: 14px; background: #FFFFFF;">
+                                        <option value="default">Default Dark</option>
+                                        <option value="lightGrey">Light Grey</option>
+                                        <option value="corporate">Corporate Blue</option>
+                                        <option value="midnight">Midnight</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Theme Preview -->
+                                <div id="themePreview" style="margin-top: 16px;">
+                                    <!-- Preview will be populated by JavaScript -->
+                                </div>
+                                
+                                <p style="margin: 16px 0 0 0; font-size: 12px; color: #94a3b8; font-style: italic;">
+                                    Note: This changes the dashboard colors only. Presentation themes are configured in the Design module.
+                                </p>
+                            </div>
+                            
+                            <!-- Other Settings -->
+                            <div style="background: #FFFFFF; border: 1px solid #E6EAEE; border-radius: 8px; padding: 24px; margin-bottom: 16px;">
+                                <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600; color: #0F1419;">Preferences</h3>
+                                <p style="margin: 0 0 16px 0; font-size: 14px; color: #7C8B9A;">Additional settings coming soon</p>
+                                
+                                <button id="resetSettingsBtn" style="padding: 10px 20px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer;">
+                                    Reset to Defaults
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            sidebarToggle.textContent = sidebar.classList.contains('collapsed') ? '›' : '‹';
+            localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+        });
+
+        // Restore sidebar state
+        if (localStorage.getItem('sidebarCollapsed') === 'true') {
+            sidebar.classList.add('collapsed');
+            sidebarToggle.textContent = '›';
+        }
+
+        // Module Switching
+        const navItems = document.querySelectorAll('.nav-item');
+        const modules = document.querySelectorAll('.module');
+        const breadcrumbCurrent = document.getElementById('breadcrumbCurrent');
+
+        function switchModule(moduleName) {
+            // Update nav items
+            navItems.forEach(item => {
+                if (item.dataset.module === moduleName) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            // Update modules
+            modules.forEach(module => {
+                if (module.dataset.module === moduleName) {
+                    module.classList.add('active');
+                } else {
+                    module.classList.remove('active');
+                }
+            });
+
+            // Update breadcrumb
+            const moduleNames = {
+                home: 'Home',
+                design: 'Design Theme',
+                browse: 'Browse Templates',
+                build: 'Build Deck',
+                library: 'Library',
+                settings: 'Settings'
+            };
+            breadcrumbCurrent.textContent = moduleNames[moduleName] || moduleName;
+
+            // Save to localStorage
+            localStorage.setItem('currentModule', moduleName);
+
+            // Update URL hash
+            window.location.hash = `#/${moduleName}`;
+        }
+
+        // Nav item clicks
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchModule(item.dataset.module);
+            });
+        });
+
+        // Welcome card clicks
+        document.querySelectorAll('.welcome-card[data-nav]').forEach(card => {
+            card.addEventListener('click', () => {
+                switchModule(card.dataset.nav);
+            });
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                const shortcuts = {
+                    '1': 'home',
+                    '2': 'design',
+                    '3': 'browse',
+                    '4': 'build',
+                    '5': 'library',
+                    '6': 'settings',
+                    'b': 'toggleSidebar'
+                };
+
+                if (shortcuts[e.key]) {
+                    e.preventDefault();
+                    if (e.key === 'b') {
+                        sidebarToggle.click();
+                    } else {
+                        switchModule(shortcuts[e.key]);
+                    }
+                }
+            }
+        });
+
+        // Handle URL hash on load
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.replace('#/', '');
+            const savedModule = localStorage.getItem('currentModule');
+            const initialModule = hash || savedModule || 'home';
+            switchModule(initialModule);
+        });
+
+        // Handle browser back/forward
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.replace('#/', '');
+            if (hash) {
+                switchModule(hash);
+            }
+        });
+
+        // Help button
+        document.getElementById('helpBtn').addEventListener('click', () => {
+            if (window.app && window.app.showKeyboardShortcuts) {
+                window.app.showKeyboardShortcuts();
+            } else {
+                alert('Keyboard Shortcuts:\n\nCtrl+1-6: Switch modules\nCtrl+B: Toggle sidebar');
+            }
+        });
+    </script>
+    
+    <!-- Load new modular app -->
+    <script type="module" src="js/app-new.js"></script>
+</body>
+</html>

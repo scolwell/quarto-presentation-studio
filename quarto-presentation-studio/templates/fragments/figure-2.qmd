@@ -1,0 +1,3 @@
+## {.fig-title}
+
+Figure with title

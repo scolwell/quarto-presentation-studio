@@ -1,0 +1,970 @@
+[
+  {
+    "id": "title-1",
+    "name": "Title Slide",
+    "layout": "title",
+    "powerpointEquivalent": "Title Slide",
+    "slideClass": "title-slide",
+    "fragment": "templates/fragments/title-1.qmd",
+    "tags": [
+      "title",
+      "title-slide"
+    ]
+  },
+  {
+    "id": "title-2",
+    "name": "Title with Background",
+    "layout": "title",
+    "powerpointEquivalent": "Title Slide",
+    "slideClass": "title-bg",
+    "fragment": "templates/fragments/title-2.qmd",
+    "tags": [
+      "title",
+      "title-bg"
+    ]
+  },
+  {
+    "id": "title-3",
+    "name": "Title Left Aligned",
+    "layout": "title",
+    "powerpointEquivalent": "Title Slide",
+    "slideClass": "title-left",
+    "fragment": "templates/fragments/title-3.qmd",
+    "tags": [
+      "title",
+      "title-left"
+    ]
+  },
+  {
+    "id": "title-4",
+    "name": "Title with Date",
+    "layout": "title",
+    "powerpointEquivalent": "Title Slide",
+    "slideClass": "title-date",
+    "fragment": "templates/fragments/title-4.qmd",
+    "tags": [
+      "title",
+      "title-date"
+    ]
+  },
+  {
+    "id": "title-5",
+    "name": "Title with Author",
+    "layout": "title",
+    "powerpointEquivalent": "Title Slide",
+    "slideClass": "title-author",
+    "fragment": "templates/fragments/title-5.qmd",
+    "tags": [
+      "title",
+      "title-author"
+    ]
+  },
+  {
+    "id": "title-6",
+    "name": "Title with Logo",
+    "layout": "title",
+    "powerpointEquivalent": "Title Slide",
+    "slideClass": "title-logo",
+    "fragment": "templates/fragments/title-6.qmd",
+    "tags": [
+      "title",
+      "title-logo"
+    ]
+  },
+  {
+    "id": "title-7",
+    "name": "Title Centered Large",
+    "layout": "title",
+    "powerpointEquivalent": "Title Slide",
+    "slideClass": "title-large",
+    "fragment": "templates/fragments/title-7.qmd",
+    "tags": [
+      "title",
+      "title-large"
+    ]
+  },
+  {
+    "id": "title-8",
+    "name": "Title with Accent",
+    "layout": "title",
+    "powerpointEquivalent": "Title Slide",
+    "slideClass": "title-accent",
+    "fragment": "templates/fragments/title-8.qmd",
+    "tags": [
+      "title",
+      "title-accent"
+    ]
+  },
+  {
+    "id": "title-9",
+    "name": "Title Full (Subtitle, Author, Date, Location)",
+    "layout": "title",
+    "powerpointEquivalent": "Title Slide",
+    "slideClass": "title-full",
+    "fragment": "templates/fragments/title-9.qmd",
+    "tags": [
+      "title",
+      "title-full",
+      "subtitle",
+      "author",
+      "date",
+      "location"
+    ]
+  },
+  {
+    "id": "section-1",
+    "name": "Section Header",
+    "layout": "section",
+    "powerpointEquivalent": "Section Header",
+    "slideClass": "section-header",
+    "fragment": "templates/fragments/section-1.qmd",
+    "tags": [
+      "section",
+      "section-header"
+    ]
+  },
+  {
+    "id": "section-2",
+    "name": "Section with Icon",
+    "layout": "section",
+    "powerpointEquivalent": "Section Header",
+    "slideClass": "section-icon",
+    "fragment": "templates/fragments/section-2.qmd",
+    "tags": [
+      "section",
+      "section-icon"
+    ]
+  },
+  {
+    "id": "section-3",
+    "name": "Divider Slide",
+    "layout": "section",
+    "powerpointEquivalent": "Section Header",
+    "slideClass": "divider",
+    "fragment": "templates/fragments/section-3.qmd",
+    "tags": [
+      "section",
+      "divider"
+    ]
+  },
+  {
+    "id": "section-4",
+    "name": "Section Colored",
+    "layout": "section",
+    "powerpointEquivalent": "Section Header",
+    "slideClass": "section-color",
+    "fragment": "templates/fragments/section-4.qmd",
+    "tags": [
+      "section",
+      "section-color"
+    ]
+  },
+  {
+    "id": "section-5",
+    "name": "Chapter Slide",
+    "layout": "section",
+    "powerpointEquivalent": "Section Header",
+    "slideClass": "chapter",
+    "fragment": "templates/fragments/section-5.qmd",
+    "tags": [
+      "section",
+      "chapter"
+    ]
+  },
+  {
+    "id": "section-6",
+    "name": "Part Slide",
+    "layout": "section",
+    "powerpointEquivalent": "Section Header",
+    "slideClass": "part",
+    "fragment": "templates/fragments/section-6.qmd",
+    "tags": [
+      "section",
+      "part"
+    ]
+  },
+  {
+    "id": "section-7",
+    "name": "Intermission",
+    "layout": "section",
+    "powerpointEquivalent": "Section Header",
+    "slideClass": "intermission",
+    "fragment": "templates/fragments/section-7.qmd",
+    "tags": [
+      "section",
+      "intermission"
+    ]
+  },
+  {
+    "id": "section-8",
+    "name": "Coming Next",
+    "layout": "section",
+    "powerpointEquivalent": "Section Header",
+    "slideClass": "next",
+    "fragment": "templates/fragments/section-8.qmd",
+    "tags": [
+      "section",
+      "next"
+    ]
+  },
+  {
+    "id": "content-1col-1",
+    "name": "Title + Text",
+    "layout": "content-1col",
+    "powerpointEquivalent": "Title and Content",
+    "slideClass": "title-text",
+    "fragment": "templates/fragments/content-1col-1.qmd",
+    "tags": [
+      "content-1col",
+      "title-text"
+    ]
+  },
+  {
+    "id": "content-1col-2",
+    "name": "Title + Bullets",
+    "layout": "content-1col",
+    "powerpointEquivalent": "Title and Content",
+    "slideClass": "title-bullets",
+    "fragment": "templates/fragments/content-1col-2.qmd",
+    "tags": [
+      "content-1col",
+      "title-bullets"
+    ]
+  },
+  {
+    "id": "content-1col-3",
+    "name": "Title + Numbered",
+    "layout": "content-1col",
+    "powerpointEquivalent": "Title and Content",
+    "slideClass": "title-numbered",
+    "fragment": "templates/fragments/content-1col-3.qmd",
+    "tags": [
+      "content-1col",
+      "title-numbered"
+    ]
+  },
+  {
+    "id": "content-1col-4",
+    "name": "Title + Quote",
+    "layout": "content-1col",
+    "powerpointEquivalent": "Title and Content",
+    "slideClass": "title-quote",
+    "fragment": "templates/fragments/content-1col-4.qmd",
+    "tags": [
+      "content-1col",
+      "title-quote"
+    ]
+  },
+  {
+    "id": "content-1col-5",
+    "name": "Content Only",
+    "layout": "content-1col",
+    "powerpointEquivalent": "Title and Content",
+    "slideClass": "content-only",
+    "fragment": "templates/fragments/content-1col-5.qmd",
+    "tags": [
+      "content-1col",
+      "content-only"
+    ]
+  },
+  {
+    "id": "content-1col-6",
+    "name": "Title + Definition",
+    "layout": "content-1col",
+    "powerpointEquivalent": "Title and Content",
+    "slideClass": "title-definition",
+    "fragment": "templates/fragments/content-1col-6.qmd",
+    "tags": [
+      "content-1col",
+      "title-definition"
+    ]
+  },
+  {
+    "id": "content-1col-7",
+    "name": "Title + Code",
+    "layout": "content-1col",
+    "powerpointEquivalent": "Title and Content",
+    "slideClass": "title-code",
+    "fragment": "templates/fragments/content-1col-7.qmd",
+    "tags": [
+      "content-1col",
+      "title-code"
+    ]
+  },
+  {
+    "id": "content-1col-8",
+    "name": "Timeline",
+    "layout": "content-1col",
+    "powerpointEquivalent": "Title and Content",
+    "slideClass": "timeline",
+    "fragment": "templates/fragments/content-1col-8.qmd",
+    "tags": [
+      "content-1col",
+      "timeline"
+    ]
+  },
+  {
+    "id": "content-1col-9",
+    "name": "Steps",
+    "layout": "content-1col",
+    "powerpointEquivalent": "Title and Content",
+    "slideClass": "steps",
+    "fragment": "templates/fragments/content-1col-9.qmd",
+    "tags": [
+      "content-1col",
+      "steps"
+    ]
+  },
+  {
+    "id": "content-1col-10",
+    "name": "Callout",
+    "layout": "content-1col",
+    "powerpointEquivalent": "Title and Content",
+    "slideClass": "callout",
+    "fragment": "templates/fragments/content-1col-10.qmd",
+    "tags": [
+      "content-1col",
+      "callout"
+    ]
+  },
+  {
+    "id": "content-1col-11",
+    "name": "Title + Image",
+    "layout": "content-1col",
+    "powerpointEquivalent": "Title and Content",
+    "slideClass": "title-image",
+    "fragment": "templates/fragments/content-1col-11.qmd",
+    "tags": [
+      "content-1col",
+      "title-image"
+    ]
+  },
+  {
+    "id": "content-1col-12",
+    "name": "Full Width Image",
+    "layout": "content-1col",
+    "powerpointEquivalent": "Title and Content",
+    "slideClass": "full-image",
+    "fragment": "templates/fragments/content-1col-12.qmd",
+    "tags": [
+      "content-1col",
+      "full-image"
+    ]
+  },
+  {
+    "id": "content-2col-1",
+    "name": "Two Columns Text",
+    "layout": "content-2col",
+    "powerpointEquivalent": "Two Content",
+    "slideClass": "two-text",
+    "fragment": "templates/fragments/content-2col-1.qmd",
+    "tags": [
+      "content-2col",
+      "two-text"
+    ]
+  },
+  {
+    "id": "content-2col-2",
+    "name": "Title + Two Columns",
+    "layout": "content-2col",
+    "powerpointEquivalent": "Two Content",
+    "slideClass": "title-two-col",
+    "fragment": "templates/fragments/content-2col-2.qmd",
+    "tags": [
+      "content-2col",
+      "title-two-col"
+    ]
+  },
+  {
+    "id": "content-2col-3",
+    "name": "Left Image Right Text",
+    "layout": "content-2col",
+    "powerpointEquivalent": "Two Content",
+    "slideClass": "img-left-text-right",
+    "fragment": "templates/fragments/content-2col-3.qmd",
+    "tags": [
+      "content-2col",
+      "img-left-text-right"
+    ]
+  },
+  {
+    "id": "content-2col-4",
+    "name": "Left Text Right Image",
+    "layout": "content-2col",
+    "powerpointEquivalent": "Two Content",
+    "slideClass": "text-left-img-right",
+    "fragment": "templates/fragments/content-2col-4.qmd",
+    "tags": [
+      "content-2col",
+      "text-left-img-right"
+    ]
+  },
+  {
+    "id": "content-2col-5",
+    "name": "Two Images",
+    "layout": "content-2col",
+    "powerpointEquivalent": "Two Content",
+    "slideClass": "two-images",
+    "fragment": "templates/fragments/content-2col-5.qmd",
+    "tags": [
+      "content-2col",
+      "two-images"
+    ]
+  },
+  {
+    "id": "content-2col-6",
+    "name": "Pro and Con",
+    "layout": "content-2col",
+    "powerpointEquivalent": "Two Content",
+    "slideClass": "pro-con",
+    "fragment": "templates/fragments/content-2col-6.qmd",
+    "tags": [
+      "content-2col",
+      "pro-con"
+    ]
+  },
+  {
+    "id": "content-2col-7",
+    "name": "Before After",
+    "layout": "content-2col",
+    "powerpointEquivalent": "Two Content",
+    "slideClass": "before-after",
+    "fragment": "templates/fragments/content-2col-7.qmd",
+    "tags": [
+      "content-2col",
+      "before-after"
+    ]
+  },
+  {
+    "id": "content-2col-8",
+    "name": "Left Right Lists",
+    "layout": "content-2col",
+    "powerpointEquivalent": "Two Content",
+    "slideClass": "two-lists",
+    "fragment": "templates/fragments/content-2col-8.qmd",
+    "tags": [
+      "content-2col",
+      "two-lists"
+    ]
+  },
+  {
+    "id": "content-2col-9",
+    "name": "Feature Comparison",
+    "layout": "content-2col",
+    "powerpointEquivalent": "Two Content",
+    "slideClass": "features",
+    "fragment": "templates/fragments/content-2col-9.qmd",
+    "tags": [
+      "content-2col",
+      "features"
+    ]
+  },
+  {
+    "id": "content-2col-10",
+    "name": "Quote Left Right",
+    "layout": "content-2col",
+    "powerpointEquivalent": "Two Content",
+    "slideClass": "quotes",
+    "fragment": "templates/fragments/content-2col-10.qmd",
+    "tags": [
+      "content-2col",
+      "quotes"
+    ]
+  },
+  {
+    "id": "content-2col-11",
+    "name": "Split Screen",
+    "layout": "content-2col",
+    "powerpointEquivalent": "Two Content",
+    "slideClass": "split",
+    "fragment": "templates/fragments/content-2col-11.qmd",
+    "tags": [
+      "content-2col",
+      "split"
+    ]
+  },
+  {
+    "id": "content-2col-12",
+    "name": "Label Left Content Right",
+    "layout": "content-2col",
+    "powerpointEquivalent": "Two Content",
+    "slideClass": "label-content",
+    "fragment": "templates/fragments/content-2col-12.qmd",
+    "tags": [
+      "content-2col",
+      "label-content"
+    ]
+  },
+  {
+    "id": "comparison-1",
+    "name": "Three Column",
+    "layout": "comparison",
+    "powerpointEquivalent": "Comparison",
+    "slideClass": "three-col",
+    "fragment": "templates/fragments/comparison-1.qmd",
+    "tags": [
+      "comparison",
+      "three-col"
+    ]
+  },
+  {
+    "id": "comparison-2",
+    "name": "Matrix Table",
+    "layout": "comparison",
+    "powerpointEquivalent": "Comparison",
+    "slideClass": "matrix",
+    "fragment": "templates/fragments/comparison-2.qmd",
+    "tags": [
+      "comparison",
+      "matrix"
+    ]
+  },
+  {
+    "id": "comparison-3",
+    "name": "Venn Diagram",
+    "layout": "comparison",
+    "powerpointEquivalent": "Comparison",
+    "slideClass": "venn",
+    "fragment": "templates/fragments/comparison-3.qmd",
+    "tags": [
+      "comparison",
+      "venn"
+    ]
+  },
+  {
+    "id": "comparison-4",
+    "name": "Spectrum",
+    "layout": "comparison",
+    "powerpointEquivalent": "Comparison",
+    "slideClass": "spectrum",
+    "fragment": "templates/fragments/comparison-4.qmd",
+    "tags": [
+      "comparison",
+      "spectrum"
+    ]
+  },
+  {
+    "id": "comparison-5",
+    "name": "Four Quadrant",
+    "layout": "comparison",
+    "powerpointEquivalent": "Comparison",
+    "slideClass": "four-quad",
+    "fragment": "templates/fragments/comparison-5.qmd",
+    "tags": [
+      "comparison",
+      "four-quad"
+    ]
+  },
+  {
+    "id": "comparison-6",
+    "name": "Option Chooser",
+    "layout": "comparison",
+    "powerpointEquivalent": "Comparison",
+    "slideClass": "options",
+    "fragment": "templates/fragments/comparison-6.qmd",
+    "tags": [
+      "comparison",
+      "options"
+    ]
+  },
+  {
+    "id": "figure-1",
+    "name": "Full Figure",
+    "layout": "figure",
+    "powerpointEquivalent": "Picture with Caption",
+    "slideClass": "full-figure",
+    "fragment": "templates/fragments/figure-1.qmd",
+    "tags": [
+      "figure",
+      "full-figure"
+    ]
+  },
+  {
+    "id": "figure-2",
+    "name": "Figure with Title",
+    "layout": "figure",
+    "powerpointEquivalent": "Picture with Caption",
+    "slideClass": "fig-title",
+    "fragment": "templates/fragments/figure-2.qmd",
+    "tags": [
+      "figure",
+      "fig-title"
+    ]
+  },
+  {
+    "id": "figure-3",
+    "name": "Gallery Grid",
+    "layout": "figure",
+    "powerpointEquivalent": "Picture with Caption",
+    "slideClass": "gallery",
+    "fragment": "templates/fragments/figure-3.qmd",
+    "tags": [
+      "figure",
+      "gallery"
+    ]
+  },
+  {
+    "id": "figure-4",
+    "name": "Large Image Focus",
+    "layout": "figure",
+    "powerpointEquivalent": "Picture with Caption",
+    "slideClass": "hero-image",
+    "fragment": "templates/fragments/figure-4.qmd",
+    "tags": [
+      "figure",
+      "hero-image"
+    ]
+  },
+  {
+    "id": "figure-5",
+    "name": "Video Embed",
+    "layout": "figure",
+    "powerpointEquivalent": "Picture with Caption",
+    "slideClass": "video",
+    "fragment": "templates/fragments/figure-5.qmd",
+    "tags": [
+      "figure",
+      "video"
+    ]
+  },
+  {
+    "id": "figure-6",
+    "name": "Icon Grid",
+    "layout": "figure",
+    "powerpointEquivalent": "Picture with Caption",
+    "slideClass": "icon-grid",
+    "fragment": "templates/fragments/figure-6.qmd",
+    "tags": [
+      "figure",
+      "icon-grid"
+    ]
+  },
+  {
+    "id": "figure-7",
+    "name": "Diagram",
+    "layout": "figure",
+    "powerpointEquivalent": "Picture with Caption",
+    "slideClass": "diagram",
+    "fragment": "templates/fragments/figure-7.qmd",
+    "tags": [
+      "figure",
+      "diagram"
+    ]
+  },
+  {
+    "id": "figure-8",
+    "name": "Screenshot",
+    "layout": "figure",
+    "powerpointEquivalent": "Picture with Caption",
+    "slideClass": "screenshot",
+    "fragment": "templates/fragments/figure-8.qmd",
+    "tags": [
+      "figure",
+      "screenshot"
+    ]
+  },
+  {
+    "id": "figure-9",
+    "name": "Carousel",
+    "layout": "figure",
+    "powerpointEquivalent": "Picture with Caption",
+    "slideClass": "carousel",
+    "fragment": "templates/fragments/figure-9.qmd",
+    "tags": [
+      "figure",
+      "carousel"
+    ]
+  },
+  {
+    "id": "data-table-1",
+    "name": "Simple Table",
+    "layout": "data",
+    "powerpointEquivalent": "Table Slide",
+    "slideClass": "simple-table",
+    "fragment": "templates/fragments/data-table-1.qmd",
+    "tags": [
+      "data",
+      "simple-table"
+    ]
+  },
+  {
+    "id": "data-table-2",
+    "name": "Title + Table",
+    "layout": "data",
+    "powerpointEquivalent": "Table Slide",
+    "slideClass": "title-table",
+    "fragment": "templates/fragments/data-table-2.qmd",
+    "tags": [
+      "data",
+      "title-table"
+    ]
+  },
+  {
+    "id": "data-table-3",
+    "name": "Striped Table",
+    "layout": "data",
+    "powerpointEquivalent": "Table Slide",
+    "slideClass": "striped-table",
+    "fragment": "templates/fragments/data-table-3.qmd",
+    "tags": [
+      "data",
+      "striped-table"
+    ]
+  },
+  {
+    "id": "data-table-4",
+    "name": "Large Table",
+    "layout": "data",
+    "powerpointEquivalent": "Table Slide",
+    "slideClass": "large-table",
+    "fragment": "templates/fragments/data-table-4.qmd",
+    "tags": [
+      "data",
+      "large-table"
+    ]
+  },
+  {
+    "id": "data-chart-1",
+    "name": "Bar Chart",
+    "layout": "data",
+    "powerpointEquivalent": "Chart Slide",
+    "slideClass": "bar-chart",
+    "fragment": "templates/fragments/data-chart-1.qmd",
+    "tags": [
+      "data",
+      "bar-chart"
+    ]
+  },
+  {
+    "id": "data-chart-2",
+    "name": "Line Chart",
+    "layout": "data",
+    "powerpointEquivalent": "Chart Slide",
+    "slideClass": "line-chart",
+    "fragment": "templates/fragments/data-chart-2.qmd",
+    "tags": [
+      "data",
+      "line-chart"
+    ]
+  },
+  {
+    "id": "data-chart-3",
+    "name": "Pie Chart",
+    "layout": "data",
+    "powerpointEquivalent": "Chart Slide",
+    "slideClass": "pie-chart",
+    "fragment": "templates/fragments/data-chart-3.qmd",
+    "tags": [
+      "data",
+      "pie-chart"
+    ]
+  },
+  {
+    "id": "data-chart-4",
+    "name": "Multi Chart",
+    "layout": "data",
+    "powerpointEquivalent": "Chart Slide",
+    "slideClass": "multi-chart",
+    "fragment": "templates/fragments/data-chart-4.qmd",
+    "tags": [
+      "data",
+      "multi-chart"
+    ]
+  },
+  {
+    "id": "code-1",
+    "name": "Code Block",
+    "layout": "code",
+    "powerpointEquivalent": "Code Slide",
+    "slideClass": "code-block",
+    "fragment": "templates/fragments/code-1.qmd",
+    "tags": [
+      "code",
+      "code-block"
+    ]
+  },
+  {
+    "id": "code-2",
+    "name": "Title + Code",
+    "layout": "code",
+    "powerpointEquivalent": "Code Slide",
+    "slideClass": "title-code-block",
+    "fragment": "templates/fragments/code-2.qmd",
+    "tags": [
+      "code",
+      "title-code-block"
+    ]
+  },
+  {
+    "id": "code-3",
+    "name": "Two Code Blocks",
+    "layout": "code",
+    "powerpointEquivalent": "Code Slide",
+    "slideClass": "two-code",
+    "fragment": "templates/fragments/code-3.qmd",
+    "tags": [
+      "code",
+      "two-code"
+    ]
+  },
+  {
+    "id": "code-4",
+    "name": "Interactive R Code",
+    "layout": "code",
+    "powerpointEquivalent": "Code Slide",
+    "slideClass": "interactive-r",
+    "fragment": "templates/fragments/code-4.qmd",
+    "tags": [
+      "code",
+      "interactive",
+      "r-code"
+    ]
+  },
+  {
+    "id": "code-5",
+    "name": "Live Simulation",
+    "layout": "code",
+    "powerpointEquivalent": "Code Slide",
+    "slideClass": "live-sim",
+    "fragment": "templates/fragments/code-5.qmd",
+    "tags": [
+      "code",
+      "interactive",
+      "simulation"
+    ]
+  },
+  {
+    "id": "code-6",
+    "name": "Interactive Plot",
+    "layout": "code",
+    "powerpointEquivalent": "Code Slide",
+    "slideClass": "interactive-plot",
+    "fragment": "templates/fragments/code-6.qmd",
+    "tags": [
+      "code",
+      "interactive",
+      "plot"
+    ]
+  },
+  {
+    "id": "code-7",
+    "name": "Code + Output Display",
+    "layout": "code",
+    "powerpointEquivalent": "Code Slide",
+    "slideClass": "code-output",
+    "fragment": "templates/fragments/code-7.qmd",
+    "tags": [
+      "code",
+      "interactive",
+      "output"
+    ]
+  },
+  {
+    "id": "equation-1",
+    "name": "Single Equation",
+    "layout": "equation",
+    "powerpointEquivalent": "Equation Slide",
+    "slideClass": "single-eq",
+    "fragment": "templates/fragments/equation-1.qmd",
+    "tags": [
+      "equation",
+      "single-eq"
+    ]
+  },
+  {
+    "id": "equation-2",
+    "name": "Title + Equation",
+    "layout": "equation",
+    "powerpointEquivalent": "Equation Slide",
+    "slideClass": "title-eq",
+    "fragment": "templates/fragments/equation-2.qmd",
+    "tags": [
+      "equation",
+      "title-eq"
+    ]
+  },
+  {
+    "id": "equation-3",
+    "name": "Multi Equations",
+    "layout": "equation",
+    "powerpointEquivalent": "Equation Slide",
+    "slideClass": "multi-eq",
+    "fragment": "templates/fragments/equation-3.qmd",
+    "tags": [
+      "equation",
+      "multi-eq"
+    ]
+  },
+  {
+    "id": "utility-1",
+    "name": "Thank You",
+    "layout": "utility",
+    "powerpointEquivalent": "Thank You Slide",
+    "slideClass": "thank-you",
+    "fragment": "templates/fragments/utility-1.qmd",
+    "tags": [
+      "utility",
+      "thank-you"
+    ]
+  },
+  {
+    "id": "utility-2",
+    "name": "Questions",
+    "layout": "utility",
+    "powerpointEquivalent": "Questions Slide",
+    "slideClass": "questions",
+    "fragment": "templates/fragments/utility-2.qmd",
+    "tags": [
+      "utility",
+      "questions"
+    ]
+  },
+  {
+    "id": "utility-3",
+    "name": "Backup Slide",
+    "layout": "utility",
+    "powerpointEquivalent": "Backup Slide",
+    "slideClass": "backup",
+    "fragment": "templates/fragments/utility-3.qmd",
+    "tags": [
+      "utility",
+      "backup"
+    ]
+  },
+  {
+    "id": "utility-4",
+    "name": "Blank",
+    "layout": "utility",
+    "powerpointEquivalent": "Blank Slide",
+    "slideClass": "blank",
+    "fragment": "templates/fragments/utility-4.qmd",
+    "tags": [
+      "utility",
+      "blank"
+    ]
+  },
+  {
+    "id": "utility-5",
+    "name": "Resources",
+    "layout": "utility",
+    "powerpointEquivalent": "Content Slide",
+    "slideClass": "resources",
+    "fragment": "templates/fragments/utility-5.qmd",
+    "tags": [
+      "utility",
+      "resources"
+    ]
+  },
+  {
+    "id": "utility-6",
+    "name": "Appendix",
+    "layout": "utility",
+    "powerpointEquivalent": "Content Slide",
+    "slideClass": "appendix",
+    "fragment": "templates/fragments/utility-6.qmd",
+    "tags": [
+      "utility",
+      "appendix"
+    ]
+  }
+]

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template Browser - Quarto Deck Builder</title>
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Left Panel: Template Browser -->
+      <div class="left-panel">
+        <div class="browser-header">
+          <h1>Template Browser</h1>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="controls">
+          <div class="control-group">
+            <label for="layoutFilter">Layout:</label>
+            <select id="layoutFilter">
+              <option value="">All Layouts</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="searchInput">Search:</label>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search by name, id, or layout..."
+            />
+          </div>
+
+          <button id="resetBtn" class="btn btn-secondary">Reset</button>
+        </div>
+
+        <!-- Template Grid -->
+        <div id="templateGrid" class="template-grid"></div>
+      </div>
+
+      <!-- Right Panel: Preview + Deck Builder -->
+      <div class="right-panel">
+        <!-- Preview Section -->
+        <div class="preview-section">
+          <h2>Preview</h2>
+          <div id="previewTitle" class="preview-title">Select a template</div>
+          <iframe
+            id="previewFrame"
+            class="preview-frame"
+            title="Template Preview"
+          ></iframe>
+        </div>
+
+        <!-- Deck Builder Section -->
+        <div class="deck-builder">
+          <h2>Deck Builder</h2>
+
+          <!-- Selected Slides List -->
+          <div class="selected-slides-container">
+            <h3>Selected Slides</h3>
+            <ol id="selectedSlides" class="selected-slides-list"></ol>
+          </div>
+
+          <!-- Filename Input -->
+          <div class="deck-filename">
+            <label for="deckFilename">Filename:</label>
+            <input
+              type="text"
+              id="deckFilename"
+              placeholder="my-deck"
+              maxlength="64"
+            />
+            <span class="filename-hint">.qmd (auto-added)</span>
+          </div>
+
+          <!-- Create Deck Button -->
+          <button id="createDeckBtn" class="btn btn-primary">
+            Create Deck
+          </button>
+
+          <!-- Status Message -->
+          <div id="deckStatus" class="status-message"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Template Card Modal (for preview) -->
+    <template id="templateCardTemplate">
+      <div class="template-card">
+        <div class="card-header">
+          <h3 class="card-name"></h3>
+          <div class="card-layout"></div>
+        </div>
+        <div class="card-meta">
+          <div class="meta-item">
+            <strong>Layout:</strong> <span class="meta-layout"></span>
+          </div>
+          <div class="meta-item">
+            <strong>PowerPoint:</strong> <span class="meta-ppt"></span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-outline btn-preview">Preview</button>
+          <button class="btn btn-primary btn-add">Add</button>
+        </div>
+      </div>
+    </template>
+
+    <!-- Selected Slide Item Template -->
+    <template id="selectedSlideTemplate">
+      <li class="selected-slide-item">
+        <div class="slide-info">
+          <span class="slide-index"></span>
+          <span class="slide-name"></span>
+        </div>
+        <div class="slide-actions">
+          <button class="btn-up" title="Move up">↑</button>
+          <button class="btn-down" title="Move down">↓</button>
+          <button class="btn-remove" title="Remove">✕</button>
+        </div>
+      </li>
+    </template>
+
+    <!-- Scripts -->
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

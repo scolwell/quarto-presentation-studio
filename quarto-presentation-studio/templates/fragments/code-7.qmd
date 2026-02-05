@@ -1,0 +1,32 @@
+## Analysis Results
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| echo: true
+#| eval: false
+
+# Sample analysis code
+data <- mtcars
+model <- lm(mpg ~ wt + hp, 
+            data = data)
+summary(model)
+```
+:::
+
+::: {.column width="50%"}
+**Output:**
+
+```{r}
+#| echo: false
+#| eval: true
+
+data <- mtcars
+model <- lm(mpg ~ wt + hp, data = data)
+cat("Coefficients:\n")
+print(round(coef(model), 3))
+cat("\nR-squared:", 
+    round(summary(model)$r.squared, 3))
+```
+:::
+:::

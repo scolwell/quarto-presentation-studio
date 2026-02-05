@@ -1,0 +1,3 @@
+## {.img-left-text-right}
+
+Image left, text right

@@ -1,0 +1,3 @@
+## {.simple-table}
+
+Simple table

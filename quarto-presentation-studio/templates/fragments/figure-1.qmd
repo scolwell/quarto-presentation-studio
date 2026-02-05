@@ -1,0 +1,3 @@
+## {.full-figure}
+
+Full slide figure

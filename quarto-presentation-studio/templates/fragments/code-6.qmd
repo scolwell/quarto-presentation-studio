@@ -1,0 +1,23 @@
+## Interactive Visualization
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-width: 8
+#| fig-height: 5
+
+# Generate sample data for interactive plot
+library(ggplot2)
+
+data <- data.frame(
+  x = seq(0, 10, 0.1),
+  y = sin(seq(0, 10, 0.1)) + rnorm(101, 0, 0.1)
+)
+
+ggplot(data, aes(x = x, y = y)) +
+  geom_line(color = "#667eea", size = 1.2) +
+  geom_point(alpha = 0.5, color = "#764ba2") +
+  theme_minimal() +
+  labs(title = "Interactive Data Visualization",
+       x = "X Variable", y = "Y Variable")
+```

@@ -1,0 +1,3 @@
+## {.section-icon}
+
+Section with icon
